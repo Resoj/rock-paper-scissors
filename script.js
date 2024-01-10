@@ -18,25 +18,62 @@ function playRound(playerSelection, computerSelection){
     playerSelection = playerSelection.toUpperCase();
     computerSelection = computerSelection.toUpperCase();
 
+
     if(playerSelection === computerSelection){
-        return "It's a tie! Play another round"
+        console.log("It's a tie! Play another round.");
+        return null;
     }
     if(playerSelection === 'ROCK' && computerSelection === 'PAPER'){
-        return 'You Lose! Paper beats Rock'
+        console.log('Round lost. Paper beats Rock!');
+        return false;
     }
     if(playerSelection === 'ROCK' && computerSelection === 'SCISSORS'){
-        return 'You Win! Rock beats Scissors'
+        console.log('Round won! Rock beats Scissors!');
+        return true;
     }
     if(playerSelection === 'PAPER' && computerSelection === 'SCISSORS'){
-        return 'You Lose! Scissors beat Paper'
+        console.log('Round lost! Scissors beat Paper!');
+        return false;
     }
     if(playerSelection === 'PAPER' && computerSelection === 'ROCK'){
-        return 'You Win! Paper beats Rock'
+        console.log('Round won! Paper beats Rock!');
+        return true;
     }
     if(playerSelection === 'SCISSORS' && computerSelection === 'ROCK'){
-        return 'You Lose! Rock beats Scissors'
+        console.log('Round lost! Rock beats Scissors!');
+        return false;
     }
     if(playerSelection === 'SCISSORS' && computerSelection === 'PAPER'){
-        return 'You Win! Scissors beat Paper'
+        console.log('Round won! Scissors beat Paper!');
+        return true;
+    }
+}
+
+function game(){
+    let score1 = 0;
+    let score2 = 0;
+
+    while (score1 < 3 && score2 < 3){
+        let message = 'Choose your weapon: Rock, Paper, or Scissors:';
+        let playerSelection = prompt(message).toLowerCase();
+        let result = playRound(playerSelection, getComputerChoice());
+        if(result){
+            ++score1;
+        }
+        else{
+            if(result !== null){
+                ++score2;
+                console.log(score2);
+            }
+        }
+        console.log(`Player score: ${score1}`);
+        console.log(`Opponent score: ${score2}`);
+    }
+
+    if(score1 > score2){
+        console.log('You Win! Congrats!')
+    }
+    else{
+        console.log('You Lose! Better luck next time.')
     }
 }
