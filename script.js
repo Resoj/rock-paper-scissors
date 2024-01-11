@@ -14,7 +14,6 @@ function getComputerChoice(){
 }
 
 function playRound(playerSelection, computerSelection){
-    let winner;
     playerSelection = playerSelection.toUpperCase();
     computerSelection = computerSelection.toUpperCase();
 
@@ -49,31 +48,12 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-function game(){
-    let score1 = 0;
-    let score2 = 0;
+document.addEventListener('DOMContentLoaded', function () { // DOMContentLoaded ensures JS runs after HTML is fully loaded
+    const buttons = document.querySelectorAll('button');
 
-    while (score1 < 3 && score2 < 3){
-        let message = 'Choose your weapon: Rock, Paper, or Scissors:';
-        let playerSelection = prompt(message).toLowerCase();
-        let result = playRound(playerSelection, getComputerChoice());
-        if(result){
-            ++score1;
-        }
-        else{
-            if(result !== null){
-                ++score2;
-                console.log(score2);
-            }
-        }
-        console.log(`Player score: ${score1}`);
-        console.log(`Opponent score: ${score2}`);
-    }
-
-    if(score1 > score2){
-        console.log('You Win! Congrats!')
-    }
-    else{
-        console.log('You Lose! Better luck next time.')
-    }
-}
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            playRound(button.textContent, getComputerChoice())
+        });
+    });
+});
