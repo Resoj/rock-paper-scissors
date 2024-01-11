@@ -48,12 +48,49 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () { // DOMContentLoaded ensures JS runs after HTML is fully loaded
-    const buttons = document.querySelectorAll('button');
 
-    buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-            playRound(button.textContent, getComputerChoice())
+
+function game(){
+    let playerScore = 0;
+    let opponentScore = 0;
+    let gameInProgress = true;
+
+    document.addEventListener('DOMContentLoaded', function () { // DOMContentLoaded ensures JS runs after HTML is fully loaded
+        const container = document.querySelector('#container');
+        const buttons = document.querySelectorAll('button');
+
+        const score = document.createElement('div');
+
+        container.appendChild(score);
+        
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                if(gameInProgress){
+                    let result = playRound(button.textContent, getComputerChoice());
+                    if(result){
+                        playerScore++;
+                    }
+                    else{
+                        if(result != null){
+                            opponentScore++;
+                        }
+                    }
+
+                    score.textContent = `Player: ${playerScore} Opponent: ${opponentScore}`;
+
+                    if(playerScore === 5 || opponentScore === 5){
+                        gameInProgress = false;
+                        if(playerScore === 5){
+                            score.textContent = 'You win! Congratulations!';
+                        }
+                        else{
+                            score.textContent = 'You lost. Better luck next time.'
+                        }
+                    }
+                }
+            });
         });
     });
-});
+}
+
+game();
